@@ -23,6 +23,12 @@ var server = http.createServer(function(req, res){
 	var stream = fs.createReadStream(path);
 	// 読み込みが終わったらres.endを呼び出し、レスポンスを終了させる
 	stream.pipe(res);
+
+	// データ読み込み中にエラーが発生した場合
+	stream.on('error', function (err) {
+		res.statusCode = 500;
+		res.end('Internal Server error');
+	});
 });
 
 server.listen(3000);
