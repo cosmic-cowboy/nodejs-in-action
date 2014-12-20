@@ -21,14 +21,8 @@ var server = http.createServer(function(req, res){
 	var path = join(root, url.pathname);
 	// fs.ReadStreamを作成
 	var stream = fs.createReadStream(path);
-	stream.on('data', function (chunk) {
-		// ファイルデータを読み込む
-		res.write(chunk);
-	});
-	stream.on('end', function () {
-		// ファイルの読み込みが完了したらレスポンスを終了
-		res.end();
-	});
+	// 読み込みが終わったらres.endを呼び出し、レスポンスを終了させる
+	stream.pipe(res);
 });
 
 server.listen(3000);
