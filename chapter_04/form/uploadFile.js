@@ -38,21 +38,11 @@ function upload (req, res) {
 	// formidableがリクエストのdataイベントにアクセスして解析できるようになる
 	var form = new formidable.IncomingForm();
 
-	form.on('field', function (field, value) {
-		console.log("field:" + field);
-		console.log("value:" + value);
-	});
-
-	form.on('file', function (name, file) {
-		console.log("name:" + name);
-		console.log("file:" + file);
-	});
-
-	form.on('end', function () {
+	form.parse(req, function (err, fields, files) {
+		console.log("fields:" + fields);
+		console.log("files:" + files);
 		res.end('upload complete');
 	});
-
-	form.parse(req);
 
 }
 
