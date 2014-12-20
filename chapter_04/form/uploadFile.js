@@ -38,6 +38,12 @@ function upload (req, res) {
 	// formidableがリクエストのdataイベントにアクセスして解析できるようになる
 	var form = new formidable.IncomingForm();
 
+	// 進捗を計算
+	form.on('progress', function (byteReceived, byteExpected) {
+		var percent = Math.floor(byteReceived / byteExpected * 100);
+		console.log("percent:" + percent);
+	});
+
 	form.parse(req, function (err, fields, files) {
 		console.log("fields:" + fields);
 		console.log("files:" + files);
