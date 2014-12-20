@@ -1,5 +1,6 @@
 var http = require('http');
 var qs = require('querystring');
+var formidable = require('formidable');
 var items = [];
 
 var server = http.createServer(function (req, res) {
@@ -28,6 +29,38 @@ function show (res) {
 
 
 function upload (req, res) {
-	// body...
+	if(!isFormData(req)){
+		res.statusCode = 400;
+		res.end('Bad Request : expecting multipart / form-data');
+		return;
+	}
+	// IncomingFormを初期化して、リクエストオブジェクトをパースする
+	// formidableがリクエストのdataイベントにアクセスして解析できるようになる
+	var form = new formidable.IncomingForm();
+
+	form.on('field', function (field, value) {
+		console.log("field:" + field);
+		console.log("value:" + value);
+	});
+
+	form.on('file', function (name, file) {
+		console.log("name:" + name);
+		console.log("file:" + file);
+	});
+
+	form.on('end', function () {
+		res.end('upload complete');
+	});
+
+	form.parse(req);
+
+}
+
+// マルチパートリクエストであるかを確認する
+// Content-Typeヘッダーフィールドが
+// multipart/form-dataであるかを確認する
+function isFormData (req) {
+	var type = req.headers['content-type'] || '';
+	return 0 === type.indexOf('multipart/form-data');
 }
 
