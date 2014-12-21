@@ -59,3 +59,23 @@ client.lrange('tasks', 0, -1, function(err, items){
 	});
 });
 
+///////////////////////
+//////   セット   //////
+///////////////////////
+// セットでの保存
+client.sadd('ip_addresses', '204.10.37.96', redis.print);
+client.sadd('ip_addresses', '204.10.37.96', redis.print);
+client.sadd('ip_addresses', '72.32.231.8', redis.print);
+
+// セットの取り出し
+client.smembers('ip_addresses', function(err, members){
+	if(err) throw err;
+	// console.log(members);
+	// members.map(function (item, i) {
+	//	console.log(i + ': ' + item);
+	// });
+	members.forEach(function (item, i) {
+		console.log(i + ': ' + item);
+	});
+});
+
