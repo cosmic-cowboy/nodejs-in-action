@@ -10,4 +10,34 @@ var db = mysql.createConnection({
 	database : 'timetrack'
 });
 
+// HTTP リクエストの仕分け（ルーティング）
+var server = http.createServer(function (req, res) {
+	switch(req.method){
+		// HTTP POSTリクエストの処理手順
+		case 'POST' :
+			switch(req.url){
+				case '/' :
+					work.add(db, req, res);
+				break;
+				case '/archive' :
+					work.archive(db, req, res);
+				break;
+				case '/delete' :
+					work.delete(db, req, res);
+				break;
+			}
+		break;
 
+		// HTTP GETリクエストの処理手順
+		case 'GET' :
+			switch(req.url){
+				case '/' :
+					work.show(db, res);
+				break;
+				case '/archive' :
+					work.showArchived(db, res);
+				break;
+			}
+		break;
+	}
+});
