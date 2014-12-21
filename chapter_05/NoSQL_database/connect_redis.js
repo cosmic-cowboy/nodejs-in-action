@@ -6,6 +6,9 @@ client.on('error',function(err){
 	console.log("ERROR : " + err);
 });
 
+///////////////////////
+//////  キーペア  //////
+///////////////////////
 // キーペアでの保存
 client.set('color', 'red', redis.print);
 
@@ -15,6 +18,9 @@ client.get('color', function (err, value) {
 	console.log("Got : " + value);
 });
 
+///////////////////////
+///   ハッシュマップ   ///
+///////////////////////
 // ハッシュマップでの保存
 client.hmset('camping', {
 	'shelter' : '2-person tent',
@@ -34,3 +40,22 @@ client.hkeys('camping', function (err, keys) {
 		console.log(i + ': ' + key);
 	});
 });
+
+///////////////////////
+//////   リスト   //////
+///////////////////////
+// リストでの保存
+client.lpush('tasks', 'Paint the bikeshed red. ', redis.print);
+client.lpush('tasks', 'Paint the bikeshed green. ', redis.print);
+
+// リストの取り出し
+// lrangeは指定された範囲のデータを取り出す
+// 0は起点、-1の場合はリストの最後の項目を表す
+// 下記の指定ではすべてのデータを取得する
+client.lrange('tasks', 0, -1, function(err, items){
+	if(err) throw err;
+	items.forEach(function (item, i) {
+		console.log(i + ': ' + item);
+	});
+});
+
