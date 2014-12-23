@@ -1,8 +1,12 @@
 var connect = require('connect');
-var app = connect();
-app.use(logger);
-app.use(hello);
-app.listen(3000);
+
+// useメソッドは
+// Connectアプリケーションのインスタンスを返却するので
+// メソッドチェーンでの実行が可能
+connect()
+	.use(logger)
+	.use(hello)
+	.listen(3000);
 
 // ロギングを行うミドルウェア
 function logger(req, res, next){
@@ -12,6 +16,8 @@ function logger(req, res, next){
 }
 
 // 応答するミドルウェア
+// 
 function hello (req, res) {
+	res.setHeader('Content-Type', 'text/plain');
 	res.end('Hello world');
 }
