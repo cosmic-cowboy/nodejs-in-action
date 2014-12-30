@@ -6,6 +6,7 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
+var photos = require('./routes/photos');
 var http = require('http');
 var path = require('path');
 
@@ -35,7 +36,7 @@ if ('development' == app.get('env')) {
 }
 
 // アプリケーションの経路指定
-app.get('/', routes.index);
+app.get('/', photos.list);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

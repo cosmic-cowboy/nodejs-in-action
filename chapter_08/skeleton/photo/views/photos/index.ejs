@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%=title %></title>
+	<link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+	<h1>Photos</h1>
+	<p>Express stock phto application</p>
+	<div id="photos">
+		<div class="photo">
+			<% photos.forEach(function(photo){ %>
+				<h2><%=photo.name%></h2>
+				<img src="<%=photo.path%>">
+			<% }) %>
+		</div>
+	</div>
+</body>
+</html>
