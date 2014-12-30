@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/photo_app');
+var MongoDB = mongoose.connect('mongodb://localhost/photo_app').connection;
+
+MongoDB.on('error', function(err) { console.log(err.message); });
+MongoDB.once('open', function() {
+  console.log("mongodb connection open");
+});
 
 var schema = new mongoose.Schema({
 	name : String,
