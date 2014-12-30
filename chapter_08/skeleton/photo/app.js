@@ -29,6 +29,9 @@ app.use(app.router);
 // 静的ファイルを/publicから供給
 app.use(express.static(path.join(__dirname, 'public')));
 
+// アプリケーションレベルのsettingsに代入
+app.set("title", "My Applicaiton");
+
 // development only
 if ('development' == app.get('env')) {
 	// 配置後はHTMLエラーページをスタイルつきで表示
@@ -37,6 +40,7 @@ if ('development' == app.get('env')) {
 
 // アプリケーションの経路指定
 app.get('/', photos.list);
+app.get('/index', routes.index);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
