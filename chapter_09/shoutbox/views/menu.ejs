@@ -1,0 +1,15 @@
+<% if (locals.user) { %>
+<div id="menu">
+	<span class="name"></span>
+	<a href="/post">投稿</a>
+	<a href="/logout">ログアウト</a>
+</div>
+
+<% } else { %>
+<div id="menu">
+	<span class="name"></span>
+	<a href="/login">ログイン</a>
+	<a href="/register">登録</a>
+</div>
+
+<% } %>
