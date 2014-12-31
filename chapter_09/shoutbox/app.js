@@ -46,7 +46,8 @@ app.post('/login', login.submit);
 app.get('/logout', login.logout);
 // エントリーの関する経路の追加
 app.get('/', entries.list);
-
+app.get('/post', entries.form);
+app.post('/post', entries.submit);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

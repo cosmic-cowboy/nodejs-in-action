@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= title %></title>
+	<link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+	<% include menu %>
+
+	<h1><%= title %></h1>
+	<p>タイトルとテキストを入力して投稿ボタンをクリックしてください</p>
+
+	<% include messages %>
+
+	<form action="post" method="post">
+
+		<p><input type="text" name="entry[title]" placeholder="タイトル"></p>
+		<p><textarea name="entry[body]" placeholder="本文"></textarea></p>
+		<p><input type="submit" value="投稿"></p>
+		
+	</form>
+
+</body>
+</html>

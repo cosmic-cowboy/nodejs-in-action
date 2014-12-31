@@ -10,3 +10,10 @@ exports.list = function (req, res, next) {
 		});
 	});
 };
+
+exports.form = function (req, res, next) {
+	res.render('post', {title:'記事投稿'});
+};
+exports.submit = function (req, res, next) {
+	// body...
+};
