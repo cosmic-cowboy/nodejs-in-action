@@ -52,14 +52,3 @@ User.prototype.hashPassword = function(fn) {
 		});
 	});
 };
-
-var tobi = new User({
-	name : 'Tobi',
-	pass : 'im a fereet',
-	age : '2'
-});
-
-tobi.save(function (err) {
-	if(err) throw err;
-	console.log('user id %d', tobi.id);
-});
