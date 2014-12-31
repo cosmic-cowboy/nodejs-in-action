@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var register = require('./routes/register');
 var login = require('./routes/login');
+var entries = require('./routes/entries');
 var http = require('http');
 var path = require('path');
 var midUser = require('./lib/middleware/user');
@@ -46,6 +47,8 @@ app.post('/register', register.submit);
 app.get('/login', login.form);
 app.post('/login', login.submit);
 app.get('/logout', login.logout);
+// エントリーの関する経路の追加
+app.get('/', entries.list);
 
 
 http.createServer(app).listen(app.get('port'), function(){
