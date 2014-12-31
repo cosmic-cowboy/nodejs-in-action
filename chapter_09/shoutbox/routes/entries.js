@@ -17,6 +17,17 @@ exports.form = function (req, res, next) {
 exports.submit = function (req, res, next) {
 	var data = req.body.entry;
 
+	if(!data.title){
+		res.error("タイトルを入力してください");
+		res.redirect('back');
+		return;
+	}
+	if(data.title.length < 4){
+		res.error("タイトルは四文字以上で入力してください");
+		res.redirect('back');
+		return;
+	}
+
 	var entry = new Entry({
 		username : res.locals.user.name,
 		title : data.title,
