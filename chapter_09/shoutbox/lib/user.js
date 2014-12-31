@@ -38,3 +38,18 @@ User.prototype.update = function(fn) {
 		});
 	});
 };
+
+// bcryptの暗号サポートをユーザーモデルに追加
+User.prototype.hashPassword = function(fn) {
+	var user = this;
+	bcrypt.genSalt(12, function (err, salt) {
+		if(err) return fn(err);
+		user.salt = salt;
+		bcrypt.hash(user.pass, salt, function (err, hash) {
+			if(err) return fn(err);
+			user.pass = hash;
+			fn();
+		});
+	});
+};
+
