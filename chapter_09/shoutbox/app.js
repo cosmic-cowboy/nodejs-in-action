@@ -47,7 +47,7 @@ app.get('/login', login.form);
 app.post('/login', login.submit);
 app.get('/logout', login.logout);
 // エントリーの関する経路の追加
-app.get('/',
+app.get('/:page?',
 	page(Entry.count, 5),
 	entries.list);
 app.get('/post', entries.form);
