@@ -7,6 +7,7 @@ var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
 var register = require('./routes/register');
+var login = require('./routes/login');
 var http = require('http');
 var path = require('path');
 var messages = require('./lib/messages');
@@ -38,6 +39,10 @@ app.get('/users', user.list);
 // ユーザー登録の経路を追加
 app.get('/register', register.form);
 app.post('/register', register.submit);
+// ユーザーログイン・ログアウトの経路を追加
+app.get('/login', login.form);
+app.post('/login', login.submit);
+app.get('/logout', login.logout);
 
 
 http.createServer(app).listen(app.get('port'), function(){
