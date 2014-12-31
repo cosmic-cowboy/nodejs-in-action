@@ -10,6 +10,7 @@ var register = require('./routes/register');
 var login = require('./routes/login');
 var http = require('http');
 var path = require('path');
+var midUser = require('./lib/middleware/user');
 var messages = require('./lib/messages');
 
 var app = express();
@@ -24,7 +25,9 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.session({ secret: 'your secret here' }));
+
 // ミドルウェアとして登録
+app.use(midUser);
 app.use(messages);
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
