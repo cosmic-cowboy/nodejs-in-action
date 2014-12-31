@@ -63,7 +63,7 @@ User.getByName = function(name, fn) {
 	// ユーザIDを名前から検索
 	User.getId(name, function (err, id) {
 		if(err) return fn(err);
-		Uesr.get(id, fn);
+		User.get(id, fn);
 	});
 };
 
@@ -98,3 +98,20 @@ User.prototype.save = function(fn) {
 		});
 	}
 };
+
+
+var tobi = new User({
+       name : 'Tobi',
+       pass : 'im a fereet',
+       age : '2'
+});
+
+tobi.save(function (err) {
+       if(err) throw err;
+       console.log('user id %d', tobi.id);
+});
+
+User.authenticate('Tobi', 'im a fereet', function (err) {
+       if(err) throw err;
+       console.log('user id %d', tobi.id);
+});
