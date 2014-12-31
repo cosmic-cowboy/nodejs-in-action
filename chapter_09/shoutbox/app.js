@@ -12,6 +12,7 @@ var http = require('http');
 var path = require('path');
 var midUser = require('./lib/middleware/user');
 var messages = require('./lib/messages');
+var validate = require('./lib/middleware/validate');
 
 var app = express();
 
@@ -48,34 +49,10 @@ app.get('/logout', login.logout);
 app.get('/', entries.list);
 app.get('/post', entries.form);
 app.post('/post',
-	requireEntryTitle,
-	requireEntryTitleLengthAbove(4),
+	validate.require('entry[title]'),
+	validate.lengthAbove('entry[title]', 4),
 	entries.submit);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-
-function requireEntryTitle (req, res, next) {
-	var title = req.body.entry.title;
-	if(title){
-		next();
-	} else {
-		res.error("タイトルを入力してください");
-		res.redirect('back');
-		return;
-	}
-}
-
-function requireEntryTitleLengthAbove(len){
-	return function (req, res, next) {
-		var title = req.body.entry.title;
-		if(title.length > 4){
-			next();
-		} else {
-			res.error("タイトルは四文字以上で入力してください");
-			res.redirect('back');
-			return;
-		}
-	};
-}
