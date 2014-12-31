@@ -13,7 +13,8 @@ var path = require('path');
 var midUser = require('./lib/middleware/user');
 var messages = require('./lib/messages');
 var validate = require('./lib/middleware/validate');
-
+var page = require('./lib/middleware/page');
+var Entry = require('./lib/entry');
 var app = express();
 
 // all environments
@@ -46,7 +47,9 @@ app.get('/login', login.form);
 app.post('/login', login.submit);
 app.get('/logout', login.logout);
 // エントリーの関する経路の追加
-app.get('/', entries.list);
+app.get('/',
+	page(Entry.count, 5),
+	entries.list);
 app.get('/post', entries.form);
 app.post('/post',
 	validate.require('entry[title]'),
