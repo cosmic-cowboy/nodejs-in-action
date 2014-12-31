@@ -15,6 +15,8 @@ var messages = require('./lib/messages');
 var validate = require('./lib/middleware/validate');
 var page = require('./lib/middleware/page');
 var Entry = require('./lib/entry');
+var api = require('./routes/api');
+
 var app = express();
 
 // all environments
@@ -55,6 +57,12 @@ app.post('/post',
 	validate.require('entry[title]'),
 	validate.lengthAbove('entry[title]', 4),
 	entries.submit);
+
+// パブリックなREST API
+app.get('/api/user/:id', api.user);
+app.get('/api/entries/:page?', api.entries);
+app.post('/api/entry', api.add);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
