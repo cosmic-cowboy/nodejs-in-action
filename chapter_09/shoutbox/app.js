@@ -5,7 +5,6 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
 var register = require('./routes/register');
 var login = require('./routes/login');
 var entries = require('./routes/entries');
@@ -38,8 +37,6 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
 // ユーザー登録の経路を追加
 app.get('/register', register.form);
 app.post('/register', register.submit);
