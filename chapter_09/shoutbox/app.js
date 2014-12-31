@@ -31,6 +31,8 @@ app.use(express.methodOverride());
 app.use(express.session({ secret: 'your secret here' }));
 
 // ミドルウェアとして登録
+// apiにはbasic認証
+app.use('/api', api.auth);
 app.use(midUser);
 app.use(messages);
 app.use(app.router);
